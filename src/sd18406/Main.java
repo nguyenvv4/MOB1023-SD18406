@@ -35,5 +35,15 @@ public class Main {
         for (SinhVien sinhVien : list) {
             System.out.println(sinhVien.toString());
         }
+        System.out.println("Nhap ten can tim: ");
+        String tenCanTim = sc.nextLine();
+        ArrayList<SinhVien> ketQua = quanLySinhVien.timKiem(tenCanTim);
+        if (ketQua.isEmpty()) {
+            System.out.println("Khong tim thay");
+        } else {
+            for (SinhVien sinhVien : ketQua) {
+                System.out.println(sinhVien.toString());
+            }
+        }
     }
 }

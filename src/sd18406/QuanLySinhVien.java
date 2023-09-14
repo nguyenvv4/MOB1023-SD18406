@@ -48,4 +48,13 @@ public class QuanLySinhVien {
         return listSinhVien;
     }
 
+    public ArrayList<SinhVien> timKiem(String tenCanTim) {
+        ArrayList<SinhVien> listKetQua = new ArrayList<>();
+        for (SinhVien sinhVien : listSinhVien) {
+            if (sinhVien.getHoTen().equals(tenCanTim)) {
+                listKetQua.add(sinhVien);
+            }
+        }
+        return listKetQua;
+    }
 }
