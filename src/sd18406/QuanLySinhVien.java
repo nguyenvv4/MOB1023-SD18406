@@ -57,4 +57,14 @@ public class QuanLySinhVien {
         }
         return listKetQua;
     }
+
+    public SinhVien timKiemTheoMa(String maSinhVien) {
+        SinhVien ketQua = null;
+        for (SinhVien sv : listSinhVien) {
+            if (sv.getMaSinhVien().equals(maSinhVien)) {
+                ketQua = sv;
+            }
+        }
+        return ketQua;
+    }
 }
