@@ -11,11 +11,24 @@ import java.util.ArrayList;
  * @author nguyenvv
  */
 public class QuanLyNhanVien {
+
     ArrayList<NhanVien> list = new ArrayList<>();
-    
-    ArrayList<NhanVien> getListNhanVien(){
-        list.add(new NhanVien(1, "Nguyen Van A", 1999, "Ke toan"));
-        list.add(new NhanVien(2, "Nguyen Van B", 2000, "Nhan su"));
+
+    public QuanLyNhanVien() {
+        list.add(new NhanVien(1, "Nguyen Van A", 1999, "Ke toan", "Nam"));
+        list.add(new NhanVien(2, "Nguyen Van B", 2000, "Nhan su", "Nữ"));
+        list.add(new NhanVien(1, "Nguyen Van A", 1999, "Ke toan", "Nam"));
+        list.add(new NhanVien(2, "Nguyen Van B", 2000, "Nhan su", "Nữ"));
+
+    }
+
+    ArrayList<NhanVien> getListNhanVien() {
+
         return list;
+    }
+
+    Boolean addNew(NhanVien nhanVien) {
+        list.add(nhanVien);
+        return true;
     }
 }

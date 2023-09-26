@@ -18,11 +18,22 @@ public class NhanVien {
 
     private String phongBan;
 
-    public NhanVien(Integer id, String ten, Integer namSinh, String phongBan) {
+    private String gioiTinh;
+
+    public NhanVien(Integer id, String ten, Integer namSinh, String phongBan, String gioiTinh) {
         this.id = id;
         this.ten = ten;
         this.namSinh = namSinh;
         this.phongBan = phongBan;
+        this.gioiTinh = gioiTinh;
+    }
+
+    public String getGioiTinh() {
+        return gioiTinh;
+    }
+
+    public void setGioiTinh(String gioiTinh) {
+        this.gioiTinh = gioiTinh;
     }
 
     public Integer getId() {
@@ -61,7 +72,5 @@ public class NhanVien {
     public String toString() {
         return "NhanVien{" + "id=" + id + ", ten=" + ten + ", namSinh=" + namSinh + ", phongBan=" + phongBan + '}';
     }
-    
-    
 
 }
