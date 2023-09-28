@@ -31,4 +31,14 @@ public class QuanLyNhanVien {
         list.add(nhanVien);
         return true;
     }
+
+    Boolean delete(int vitri) {
+        list.remove(vitri);
+        return true;
+    }
+
+    Boolean update(int vitri, NhanVien nhanVienNew) {
+        list.set(vitri, nhanVienNew);
+        return true;
+    }
 }
