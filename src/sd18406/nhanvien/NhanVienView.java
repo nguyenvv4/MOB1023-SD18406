@@ -4,7 +4,15 @@
  */
 package sd18406.nhanvien;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -71,6 +79,8 @@ public class NhanVienView extends javax.swing.JFrame {
         btnXoa = new javax.swing.JButton();
         btnCapNhat = new javax.swing.JButton();
         btnTimKiem = new javax.swing.JButton();
+        btnGhiFile = new javax.swing.JButton();
+        btnDocFile = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -143,6 +153,20 @@ public class NhanVienView extends javax.swing.JFrame {
             }
         });
 
+        btnGhiFile.setText("Ghi vào file");
+        btnGhiFile.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnGhiFileMouseClicked(evt);
+            }
+        });
+
+        btnDocFile.setText("Đọc file");
+        btnDocFile.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnDocFileMouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -182,6 +206,12 @@ public class NhanVienView extends javax.swing.JFrame {
                 .addGap(59, 59, 59)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 454, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(67, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(85, 85, 85)
+                .addComponent(btnGhiFile)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnDocFile)
+                .addGap(119, 119, 119))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -220,8 +250,12 @@ public class NhanVienView extends javax.swing.JFrame {
                         .addComponent(btnCapNhat)
                         .addGap(18, 18, 18)
                         .addComponent(btnTimKiem)))
-                .addGap(34, 34, 34)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnGhiFile)
+                    .addComponent(btnDocFile))
+                .addGap(32, 32, 32)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -254,7 +288,7 @@ public class NhanVienView extends javax.swing.JFrame {
         //B1 lấy thong tin trên form
         Integer id = Integer.parseInt(txtId.getText());
         String hoTen = txtHoTen.getText();
-        if (hoTen.isEmpty()) {
+        if (hoTen.trim().isEmpty()) {
             JOptionPane.showMessageDialog(this, "Ten khong duoc de trong");
             return;
         }
@@ -319,6 +353,49 @@ public class NhanVienView extends javax.swing.JFrame {
         loadData(danhSachTimKiem);
     }//GEN-LAST:event_btnTimKiemMouseClicked
 
+    private void btnGhiFileMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnGhiFileMouseClicked
+        try {
+            // TODO add your handling code here:
+            ghiFile();
+        } catch (IOException ex) {
+            Logger.getLogger(NhanVienView.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btnGhiFileMouseClicked
+
+    private void btnDocFileMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDocFileMouseClicked
+        try {
+            // TODO add your handling code here:
+            docFile();
+        } catch (IOException ex) {
+            Logger.getLogger(NhanVienView.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(NhanVienView.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btnDocFileMouseClicked
+
+    public void docFile() throws FileNotFoundException, IOException, ClassNotFoundException {
+        FileInputStream fis = new FileInputStream("data.txt");
+        ObjectInputStream ois = new ObjectInputStream(fis);
+        ArrayList<NhanVien> list = new ArrayList<>();
+        while (fis.available() > 0) {
+            list.add((NhanVien) ois.readObject());
+        }
+        ois.close();
+        fis.close();
+        loadData(list);
+    }
+
+    public void ghiFile() throws FileNotFoundException, IOException {
+        FileOutputStream fos = new FileOutputStream("data.txt");
+        ObjectOutputStream oos = new ObjectOutputStream(fos);
+        ArrayList<NhanVien> listNhanVien = quanLyNhanVien.getListNhanVien();
+        for (NhanVien nhanVien : listNhanVien) {
+            oos.writeObject(nhanVien);
+        }
+        oos.close();
+        fos.close();
+    }
+
     /**
      * @param args the command line arguments
      */
@@ -356,6 +433,8 @@ public class NhanVienView extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCapNhat;
+    private javax.swing.JButton btnDocFile;
+    private javax.swing.JButton btnGhiFile;
     private javax.swing.JButton btnThem;
     private javax.swing.JButton btnTimKiem;
     private javax.swing.JButton btnXoa;
